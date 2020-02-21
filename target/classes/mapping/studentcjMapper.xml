@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.t4.exam.dao.studentcjMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.t4.exam.pojo.studentcj" >
+    <id column="xsid" property="xsid" jdbcType="INTEGER" />
+    <result column="kcid" property="kcid" jdbcType="INTEGER" />
+    <result column="kccj" property="kccj" jdbcType="VARCHAR" />
+    <result column="sj" property="sj" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    xsid, kcid, kccj, sj
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from studentcj
+    where xsid = #{xsid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from studentcj
+    where xsid = #{xsid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.accp.t4.exam.pojo.studentcj" >
+    insert into studentcj (xsid, kcid, kccj, 
+      sj)
+    values (#{xsid,jdbcType=INTEGER}, #{kcid,jdbcType=INTEGER}, #{kccj,jdbcType=VARCHAR}, 
+      #{sj,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.t4.exam.pojo.studentcj" >
+    insert into studentcj
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="xsid != null" >
+        xsid,
+      </if>
+      <if test="kcid != null" >
+        kcid,
+      </if>
+      <if test="kccj != null" >
+        kccj,
+      </if>
+      <if test="sj != null" >
+        sj,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="xsid != null" >
+        #{xsid,jdbcType=INTEGER},
+      </if>
+      <if test="kcid != null" >
+        #{kcid,jdbcType=INTEGER},
+      </if>
+      <if test="kccj != null" >
+        #{kccj,jdbcType=VARCHAR},
+      </if>
+      <if test="sj != null" >
+        #{sj,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.t4.exam.pojo.studentcj" >
+    update studentcj
+    <set >
+      <if test="kcid != null" >
+        kcid = #{kcid,jdbcType=INTEGER},
+      </if>
+      <if test="kccj != null" >
+        kccj = #{kccj,jdbcType=VARCHAR},
+      </if>
+      <if test="sj != null" >
+        sj = #{sj,jdbcType=DATE},
+      </if>
+    </set>
+    where xsid = #{xsid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.t4.exam.pojo.studentcj" >
+    update studentcj
+    set kcid = #{kcid,jdbcType=INTEGER},
+      kccj = #{kccj,jdbcType=VARCHAR},
+      sj = #{sj,jdbcType=DATE}
+    where xsid = #{xsid,jdbcType=INTEGER}
+  </update>
+</mapper>

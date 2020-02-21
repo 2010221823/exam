@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.dao.studentzhuanMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.t4.exam.pojo.studentzhuan" >
+    <id column="zhuanid" property="zhuanid" jdbcType="INTEGER" />
+    <result column="zhuanname" property="zhuanname" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    zhuanid, zhuanname
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from studentzhuan
+    where zhuanid = #{zhuanid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from studentzhuan
+    where zhuanid = #{zhuanid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.accp.t4.exam.pojo.studentzhuan" >
+    insert into studentzhuan (zhuanid, zhuanname)
+    values (#{zhuanid,jdbcType=INTEGER}, #{zhuanname,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.t4.exam.pojo.studentzhuan" >
+    insert into studentzhuan
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="zhuanid != null" >
+        zhuanid,
+      </if>
+      <if test="zhuanname != null" >
+        zhuanname,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="zhuanid != null" >
+        #{zhuanid,jdbcType=INTEGER},
+      </if>
+      <if test="zhuanname != null" >
+        #{zhuanname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.t4.exam.pojo.studentzhuan" >
+    update studentzhuan
+    <set >
+      <if test="zhuanname != null" >
+        zhuanname = #{zhuanname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where zhuanid = #{zhuanid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.t4.exam.pojo.studentzhuan" >
+    update studentzhuan
+    set zhuanname = #{zhuanname,jdbcType=VARCHAR}
+    where zhuanid = #{zhuanid,jdbcType=INTEGER}
+  </update>
+</mapper>

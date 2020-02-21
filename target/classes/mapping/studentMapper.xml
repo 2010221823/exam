@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.t4.exam.dao.studentMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.t4.exam.pojo.student" >
+    <id column="studentid" property="studentid" jdbcType="INTEGER" />
+    <result column="studentname" property="studentname" jdbcType="VARCHAR" />
+    <result column="studentbj" property="studentbj" jdbcType="VARCHAR" />
+    <result column="studentbh" property="studentbh" jdbcType="INTEGER" />
+  </resultMap>
+   <resultMap id="BaseResultMap1" type="com.accp.t4.exam.pojo.vo" >
+   
+    <result column="studentname" property="studentname" jdbcType="VARCHAR" />
+    <result column="zhuanname" property="zhuanname" jdbcType="VARCHAR" />
+    <result column="kcname" property="kcname" jdbcType="VARCHAR" />
+     <result column="kcid" property="kcid" jdbcType="VARCHAR" />
+      <result column="studentid" property="studentid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    studentid, studentname, studentbj, studentbh
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from student
+    where studentid = #{studentid,jdbcType=INTEGER}
+  </select>
+    <select id="selectByPrimaryKey2" resultMap="BaseResultMap1" parameterType="java.lang.String" >
+   SELECT  student.`studentid`, studentkc.`kcid`,student.`studentname`,studentzhuan.`zhuanname`,`studentkc`.`kcname` FROM `student` JOIN studentzhuan ON student.`studentbh`= studentzhuan.`zhuanid` JOIN `studentkc` ON `studentzhuan`.`zhuanid`=studentkc.`zid` WHERE student.`studentname`=#{studentname,jdbcType=VARCHAR}
+
+  </select>
+    <select id="selectByPrimaryKey1" resultMap="BaseResultMap" >
+  SELECT `studentname` FROM `student`
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from student
+    where studentid = #{studentid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.accp.t4.exam.pojo.student" >
+    insert into student (studentid, studentname, studentbj, 
+      studentbh)
+    values (#{studentid,jdbcType=INTEGER}, #{studentname,jdbcType=VARCHAR}, #{studentbj,jdbcType=VARCHAR}, 
+      #{studentbh,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.t4.exam.pojo.student" >
+    insert into student
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="studentid != null" >
+        studentid,
+      </if>
+      <if test="studentname != null" >
+        studentname,
+      </if>
+      <if test="studentbj != null" >
+        studentbj,
+      </if>
+      <if test="studentbh != null" >
+        studentbh,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="studentid != null" >
+        #{studentid,jdbcType=INTEGER},
+      </if>
+      <if test="studentname != null" >
+        #{studentname,jdbcType=VARCHAR},
+      </if>
+      <if test="studentbj != null" >
+        #{studentbj,jdbcType=VARCHAR},
+      </if>
+      <if test="studentbh != null" >
+        #{studentbh,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.t4.exam.pojo.student" >
+    update student
+    <set >
+      <if test="studentname != null" >
+        studentname = #{studentname,jdbcType=VARCHAR},
+      </if>
+      <if test="studentbj != null" >
+        studentbj = #{studentbj,jdbcType=VARCHAR},
+      </if>
+      <if test="studentbh != null" >
+        studentbh = #{studentbh,jdbcType=INTEGER},
+      </if>
+    </set>
+    where studentid = #{studentid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.t4.exam.pojo.student" >
+    update student
+    set studentname = #{studentname,jdbcType=VARCHAR},
+      studentbj = #{studentbj,jdbcType=VARCHAR},
+      studentbh = #{studentbh,jdbcType=INTEGER}
+    where studentid = #{studentid,jdbcType=INTEGER}
+  </update>
+</mapper>
